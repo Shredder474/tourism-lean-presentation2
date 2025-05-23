@@ -1,0 +1,19 @@
+name: Generate PPTX
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+      - run: mvn clean package
+      - uses: softprops/action-gh-release@v1
+        with:
+          files: target/tourism-lean-presentation.pptx

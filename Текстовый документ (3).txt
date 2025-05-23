@@ -1,0 +1,24 @@
+import org.apache.poi.xslf.usermodel.*;
+import java.awt.*;
+import java.io.FileOutputStream;
+
+public class TourismPresentationGenerator {
+    public static void main(String[] args) throws Exception {
+        XMLSlideShow ppt = new XMLSlideShow();
+        ppt.setPageSize(new Dimension(1024, 768));
+        
+        // Слайд 1: Титульный
+        XSLFSlide slide1 = ppt.createSlide();
+        XSLFTextShape title1 = slide1.createTextBox();
+        title1.setText("ПРИМЕНЕНИЕ ОСНОВ БЕРЕЖЛИВОГО ПРОИЗВОДСТВА\nВ ТУРИЗМЕ");
+        title1.setAnchor(new Rectangle(100, 100, 800, 150));
+        title1.setFontSize(36.0);
+
+        // Сохранение
+        String outputPath = "target/tourism-lean-presentation.pptx";
+        try (FileOutputStream out = new FileOutputStream(outputPath)) {
+            ppt.write(out);
+            System.out.println("Презентация создана: " + outputPath);
+        }
+    }
+}
